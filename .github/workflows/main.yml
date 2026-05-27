@@ -1,34 +1,37 @@
-name: Gerar APK
+Rname: Build APK
 
 on:
   push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+    branches: [ main, master, principal ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout do codigo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Configurar o JDK 17
-        uses: actions/setup-java@v4
+      - uses: actions/setup-java@v4
         with:
-          distribution: 'zulu'
           java-version: '17'
+          distribution: 'temurin'
 
-      - name: Configurar e Executar o Gradle Build
-        uses: gradle/gradle-build-action@v3
+      - name: Cache Gradle
+        uses: actions/cache@v3
         with:
-          arguments: assembleDebug
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
 
-      - name: Salvar o APK gerado
+      - name: Permissao gradlew
+        run: chmod +x gradlew
+
+      - name: Build APK
+        run: ./gradlew assembleDebug --stacktrace
+
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: aplicativo-debug
-          path: app/build/outputs/apk/debug/app-debug.apk
+          name: PontoFace-debug
+          path: app/build/outputs/apk/debug/appdebug.Apk
+          
