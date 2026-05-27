@@ -23,7 +23,8 @@ cd "$SAVED" >/dev/null
 APP_NAME="Gradle"
 APP_BASE_NAME=`basename "$0"`
 
-DEFAULT_JVM_OPTS='"-Xmx64m" "-Xms64m"'
+# CONFIGURAÇÃO CORRIGIDA AQUI: Sem aspas duplas internas e com 2GB (2048m)
+DEFAULT_JVM_OPTS="-Xmx2048m -Xms512m"
 
 MAX_FD="maximum"
 
