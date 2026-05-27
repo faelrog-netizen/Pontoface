@@ -116,3 +116,4 @@ No release:
 - `USE_MOCK_CAMERA = false` → câmera real
 - Código minificado com ProGuard
 - Badge de teste não aparece
+
