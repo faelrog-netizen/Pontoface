@@ -18,10 +18,15 @@ jobs:
             ~/.gradle/caches
             ~/.gradle/wrapper
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
-      - name: Permissao gradlew
-        run: chmod +x gradlew
+- name: Build APK
+- name: Permissao gradlew
+        run: chmod +x ./gradlew
+
       - name: Build APK
+        env:
+          GRADLE_OPTS: "-Dorg.gradle.jvmargs=-Xmx2048m"
         run: ./gradlew assembleDebug --stacktrace
+
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
