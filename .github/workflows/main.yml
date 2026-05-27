@@ -22,11 +22,10 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
-      - name: Conceder permissao ao Gradlew
-        run: chmod +x gradlew
-
-      - name: Gerar APK de Debug
-        run: ./gradlew assembleDebug
+      - name: Configurar e Executar o Gradle Build
+        uses: gradle/gradle-build-action@v3
+        with:
+          arguments: assembleDebug
 
       - name: Salvar o APK gerado
         uses: actions/upload-artifact@v4
